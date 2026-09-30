@@ -1,0 +1,10 @@
+{
+  "name": "Remix Banho e Tosa EXE (Bckup)",
+  "description": "Sistema de agendamento de banho e tosa estilo Notion/Airtable com controle multiusuário isolado, cadastro de clientes, pets, serviços e fluxo diário.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "entities": {
+    "usuario": {
+      "title": "CadUsuario",
+      "description": "Cadastro de usuários do petshop",
+      "type": "object",
+      "properties": {
+        "Id": { "type": "string" },
+        "Nome": { "type": "string" },
+        "Senha": { "type": "string" },
+        "Permissoes": { "type": "string", "enum": ["Administrador", "Usuário"] },
+        "Segmento": { "type": "string", "enum": ["petshop", "lavarapido"] }
+      },
+      "required": ["Id", "Nome", "Senha", "Permissoes"]
+    },
+    "cliente": {
+      "title": "CadCliente",
+      "description": "Cadastro de clientes vinculados ao usuário",
+      "type": "object",
+      "properties": {
+        "Id": { "type": "string" },
+        "Nome": { "type": "string" },
+        "Telefone": { "type": "string" },
+        "Endereco": { "type": "string" },
+        "Ativo": { "type": "boolean" },
+        "IdUsuarioDono": { "type": "string" }
+      },
+      "required": ["Id", "Nome", "Telefone", "Endereco", "Ativo", "IdUsuarioDono"]
+    },
+    "pet": {
+      "title": "CadPets",
+      "description": "Cadastro de animais",
+      "type": "object",
+      "properties": {
+        "Id": { "type": "string" },
+        "Nome": { "type": "string" },
+        "Especie": { "type": "string" },
+        "Porte": { "type": "string" },
+        "Sexo": { "type": "string" },
+        "IdCliente": { "type": "string" },
+        "Ativo": { "type": "boolean" }
+      },
+      "required": ["Id", "Nome", "Especie", "Porte", "Sexo", "IdCliente", "Ativo"]
+    },
+    "produto": {
+      "title": "CadProdutos",
+      "description": "Cadastro de produtos e serviços oferecidos",
+      "type": "object",
+      "properties": {
+        "Id": { "type": "string" },
+        "Nome": { "type": "string" },
+        "Tipo": { "type": "string" },
+        "Preco": { "type": "number" },
+        "Ativo": { "type": "boolean" }
+      },
+      "required": ["Id", "Nome", "Tipo", "Preco", "Ativo"]
+    },
+    "movimento": {
+      "title": "CadMovDiario",
+      "description": "Cabeçalho de movimentação diária",
+      "type": "object",
+      "properties": {
+        "Id": { "type": "string" },
+        "Cliente": { "type": "string" },
+        "Telefone": { "type": "string" },
+        "Endereco": { "type": "string" },
+        "Observacao": { "type": "string" },
+        "IdUsuarioDono": { "type": "string" }
+      },
+      "required": ["Id", "Cliente", "Telefone", "Endereco", "Observacao", "IdUsuarioDono"]
+    },
+    "detalheMov": {
+      "title": "CadDetMovDiario",
+      "description": "Linha detalhada de agendamento",
+      "type": "object",
+      "properties": {
+        "Id": { "type": "string" },
+        "IdCadMovDiario": { "type": "string" },
+        "Data": { "type": "string" },
+        "Hora": { "type": "string" },
+        "NomePet": { "type": "string" },
+        "Quantidade": { "type": "number" },
+        "Servico": { "type": "string" },
+        "PrecoUnitario": { "type": "number" },
+        "TotalDaLinha": { "type": "number" },
+        "Realizado": { "type": "boolean" },
+        "Pago": { "type": "boolean" },
+        "Ativo": { "type": "boolean" }
+      },
+      "required": [
+        "Id",
+        "IdCadMovDiario",
+        "Data",
+        "Hora",
+        "NomePet",
+        "Quantidade",
+        "Servico",
+        "PrecoUnitario",
+        "TotalDaLinha",
+        "Realizado",
+        "Pago",
+        "Ativo"
+      ]
+    },
+    "infoConta": {
+      "title": "CadInfoConta",
+      "description": "Informações e customização de marca",
+      "type": "object",
+      "properties": {
+        "Id": { "type": "string" },
+        "NomeEmpresa": { "type": "string" },
+        "Logo": { "type": "string" },
+        "Endereco": { "type": "string" },
+        "Fone": { "type": "string" },
+        "CorFundo": { "type": "string" },
+        "IdUsuarioDono": { "type": "string" }
+      },
+      "required": ["Id", "NomeEmpresa", "Logo", "Endereco", "Fone", "CorFundo", "IdUsuarioDono"]
+    },
+    "firebaseBackup": {
+      "title": "FirebaseStateBackup",
+      "description": "Full compressed layout state backup",
+      "type": "object",
+      "properties": {
+        "lastSynced": { "type": "string" },
+        "syncedBy": { "type": "string" },
+        "payload": { "type": "string" }
+      },
+      "required": ["lastSynced", "syncedBy", "payload"]
+    },
+    "formQuestion": {
+      "title": "FormQuestion",
+      "description": "Dynamic form questions defined by administrative users",
+      "type": "object",
+      "properties": {
+        "Id": { "type": "string" },
+        "Texto": { "type": "string" },
+        "Tipo": { "type": "string", "enum": ["Texto", "Sim/Não"] },
+        "Opcoes": { "type": "string", "description": "Comma separated options if selection type" }
+      },
+      "required": ["Id", "Texto", "Tipo"]
+    },
+    "atendimentoForm": {
+      "title": "AtendimentoForm",
+      "description": "Unique WhatsApp shareable form records for client pet pre-registration",
+      "type": "object",
+      "properties": {
+        "Id": { "type": "string" },
+        "TutorNome": { "type": "string" },
+        "TutorTelefone": { "type": "string" },
+        "Status": { "type": "string", "enum": ["Pendente", "Concluído"] },
+        "CreatedAt": { "type": "string" },
+        "CompletedAt": { "type": "string" },
+        "Respostas": { "type": "object", "description": "Map of QuestionId to selected or typed value response" }
+      },
+      "required": ["Id", "TutorNome", "Status", "CreatedAt"]
+    },
+    "prePedidoCompra": {
+      "title": "PrePedidoCompra",
+      "description": "Pré-pedidos de compras para fornecedores",
+      "type": "object",
+      "properties": {
+        "ID_Pedido": { "type": "string" },
+        "ID_Fornecedor": { "type": "string" },
+        "Data_Pedido": { "type": "string" },
+        "Status": { "type": "string", "enum": ["Pendente", "Enviado", "Recebido"] },
+        "Itens": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ID_Produto": { "type": "string" },
+              "Quantidade_Pedida": { "type": "number" },
+              "Preco_Custo_Atual": { "type": "number" }
+            },
+            "required": ["ID_Produto", "Quantidade_Pedida", "Preco_Custo_Atual"]
+          }
+        },
+        "IdUsuarioDono": { "type": "string" }
+      },
+      "required": ["ID_Pedido", "ID_Fornecedor", "Data_Pedido", "Status", "Itens"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "usuario",
+      "description": "Users matching authentication records"
+    },
+    "/configs/{userId}": {
+      "schema": "infoConta",
+      "description": "Brand custom configuration details"
+    },
+    "/backups/{userId}": {
+      "schema": "firebaseBackup",
+      "description": "Full aggregated encrypted or raw state backups for the current tenant user"
+    },
+    "/form_questions/{questionId}": {
+      "schema": "formQuestion",
+      "description": "Customizable list of questions editable by administrators"
+    },
+    "/atendimentos_form/{idAtendimento}": {
+      "schema": "atendimentoForm",
+      "description": "Single-use WhatsApp link record for collecting answers about pets"
+    },
+    "/pre_pedidos_compra/{idPedido}": {
+      "schema": "prePedidoCompra",
+      "description": "Purchase orders placed with suppliers"
+    }
+  }
+}

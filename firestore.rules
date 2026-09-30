@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net: default-deny catch-all must be first
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Configs collection
+    match /configs/{userId} {
+      allow read, write: if true;
+    }
+
+    // Backups collection and subcollections (chunks)
+    match /backups/{userId} {
+      allow read, write: if true;
+
+      match /{allChildren=**} {
+        allow read, write: if true;
+      }
+    }
+
+    // Form Questions collection
+    match /form_questions/{questionId} {
+      allow read, write: if true;
+    }
+
+    // Atendimentos Form collection
+    match /atendimentos_form/{idAtendimento} {
+      allow read, write: if true;
+    }
+
+    // Pre Pedidos Compra collection
+    match /pre_pedidos_compra/{idPedido} {
+      allow read, write: if true;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    // Connection test document
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+  }
+}
+
